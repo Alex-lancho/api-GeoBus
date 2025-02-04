@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Put, Delete } from '@nestjs/common'
 import { UbicacionService } from './ubicacion.service';
 import { Ubicacion } from '../entities/ubicacion.entity';
 
-@Controller('ubicaciones')
+@Controller('ubicacion')
 export class UbicacionController {
   constructor(private readonly ubicacionService: UbicacionService) {}
 
@@ -16,9 +16,15 @@ export class UbicacionController {
     return this.ubicacionService.findOne(id);
   }
 
-  @Post()
-  create(@Body() data: Partial<Ubicacion>): Promise<Ubicacion> {
-    return this.ubicacionService.create(data);
+  @Get('obtenerUbicacionPorCombi/:idCombi')
+  async obtenerUbicacionPorCombi(@Param('idCombi') idCombi: string): Promise<Ubicacion[]> {
+    return this.ubicacionService.listByIdCombiUbicacion(idCombi);
+  }
+
+  @Post('createUbicacion')
+  async create(@Body() body: { data: Partial<Ubicacion>; idCombi: string }): Promise<Ubicacion> {
+    const { data, idCombi } = body;
+    return this.ubicacionService.create(data, idCombi);
   }
 
   @Put(':id')

@@ -31,6 +31,7 @@ import { RutaModule } from './ruta/ruta.module';
       database: 'bdruta',
       entities: [Usuario, Chofer, Alerta,Combi,Evaluacion,Horario,Notificacion,Ubicacion,Ruta],
       synchronize: true, // Usar solo en desarrollo
+      //logging: ['query', 'error'],
     }),
     TypeOrmModule.forFeature([Usuario, Chofer, Alerta,Combi,Evaluacion,Horario,Notificacion,Ubicacion,Ruta]),
     UsuarioModule,

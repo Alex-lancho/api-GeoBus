@@ -10,7 +10,7 @@ export class RutaService {
     @InjectRepository(Ruta)
     private readonly rutaRepository: Repository<Ruta>,
     @InjectRepository(Combi)
-        private combiRepository: Repository<Combi>,
+    private combiRepository: Repository<Combi>,
   ) {}
   async findAll(): Promise<Ruta[]> {
     return this.rutaRepository.find({ relations: ['combi'] });

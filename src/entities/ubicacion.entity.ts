@@ -18,7 +18,7 @@ export class Ubicacion {
   @Column('time')
   tiempoTranscurrido: string;
 
-  @ManyToOne(() => Combi, (combi) => combi.ubicaciones)
+  @ManyToOne(() => Combi, (combi) => combi.ubicaciones, {eager: true, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'idCombi' })
   combi: Combi;
 }

@@ -24,10 +24,12 @@ export class RutaController {
         const { data, idCombi } = body; // Extrae los datos del body
         return this.rutaService.create(data, idCombi); // Llama al servicio para crear la ruta
     }
+    
     @Get(':idCombi')
     async obtenerRutasPorCombi(@Param('idCombi') idCombi: string): Promise<Ruta[]> {
         return this.rutaService.listByIdCombi(idCombi);
     }
+
     @Put(':id')
     update(@Param('id') id: number, @Body() data: Partial<Ruta>): Promise<Ruta> {
         return this.rutaService.update(id, data);
