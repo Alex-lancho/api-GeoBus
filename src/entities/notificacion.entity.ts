@@ -12,8 +12,8 @@ export class Notificacion {
   descripcion: string;
 
   @Column({ length: 45 })
-  tipoUsuario: string;
+  nombreCompleto: string;
 
   @Column({ length: 250 })
-  MacMovil: string;
+  dni: string;
 }

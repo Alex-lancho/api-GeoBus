@@ -4,9 +4,10 @@ import { AlertaController } from './alerta.controller';
 import { Alerta } from 'src/entities/alerta.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Chofer } from 'src/entities/chofer.entity';
+import { Combi } from 'src/entities/combi.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Alerta,Chofer])],
+  imports: [TypeOrmModule.forFeature([Alerta,Combi])],
   providers: [AlertaService],
   controllers: [AlertaController],
   exports:[AlertaService]

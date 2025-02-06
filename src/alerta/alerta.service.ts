@@ -3,14 +3,15 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Alerta } from '../entities/alerta.entity';
 import { Chofer } from 'src/entities/chofer.entity';
+import { Combi } from 'src/entities/combi.entity';
 
 @Injectable()
 export class AlertaService {
   constructor(
     @InjectRepository(Alerta)
     private alertaRepository: Repository<Alerta>,
-    @InjectRepository(Chofer)
-    private choferRepository: Repository<Chofer>,
+    @InjectRepository(Combi)
+    private combiRepository: Repository<Combi>,
   ) {}
 
   async findAll(): Promise<Alerta[]> {
@@ -21,19 +22,23 @@ export class AlertaService {
     return this.alertaRepository.findOne({ where: { idAlerta: id }, relations: ['chofer'] });
   }
 
-  async create(data: Partial<Alerta>,idChofer:string): Promise<Alerta> {
-    const chofer = await this.choferRepository.findOne({ where: { idChofer } });
-    if (!chofer) {
-      throw new Error('La chofer especificada no existe');
+  async create(data: Partial<Alerta>, idCombi: string): Promise<Alerta> {
+    // Busca la combi por id, incluyendo la relación con el chofer
+    const combi = await this.combiRepository.findOne({
+      where: { idCombi },
+      relations: ['chofer'],
+    });
+    if (!combi || !combi.chofer) {
+      throw new Error('La combi no existe o no tiene chofer asignado');
     }
     
-    const nuevaRuta = this.alertaRepository.create({
+    // Crea la alerta asignándole el chofer obtenido a partir de la combi
+    const nuevaAlerta = this.alertaRepository.create({
       ...data, 
-      chofer,  
+      chofer: combi.chofer,  
     });
 
-    // Guarda la alerta en la base de datos
-    return await this.alertaRepository.save(nuevaRuta);
+    return await this.alertaRepository.save(nuevaAlerta);
   }
 
   async update(id: string, data: Partial<Alerta>): Promise<Alerta> {
