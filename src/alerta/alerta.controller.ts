@@ -17,8 +17,9 @@ export class AlertaController {
   }
 
   @Post()
-  create(@Body() data: Partial<Alerta>): Promise<Alerta> {
-    return this.alertaService.create(data);
+  async create(@Body() body: { data: Partial<Alerta>; idCombi: string }): Promise<Alerta> {
+    const { data, idCombi } = body;
+    return this.alertaService.create(data, idCombi);
   }
 
   @Put(':id')
@@ -29,5 +30,10 @@ export class AlertaController {
   @Delete(':id')
   delete(@Param('id') id: string): Promise<void> {
     return this.alertaService.delete(id);
+  }
+
+  @Get('count')
+  async countAlerts(): Promise<number> {
+    return this.alertaService.countAlerts();
   }
 }

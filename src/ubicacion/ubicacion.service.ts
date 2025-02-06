@@ -49,4 +49,8 @@ export class UbicacionService {
   async listByIdCombiUbicacion(idCombi: string): Promise<Ubicacion[]> {
     return this.ubicacionRepository.findBy({ combi: { idCombi } });
   }
+
+  async countLocation(): Promise<number> {
+    return await this.ubicacionRepository.count();
+  }
 }

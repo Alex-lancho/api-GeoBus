@@ -1,13 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Chofer } from '../entities/chofer.entity';
+import { Usuario } from 'src/entities/usuario.entity';
 
 @Injectable()
 export class ChoferService {
   constructor(
     @InjectRepository(Chofer)
     private choferRepository: Repository<Chofer>,
+    @InjectRepository(Chofer)
+    private usuarioRepository: Repository<Usuario>,
   ) {}
 
   async findAll(): Promise<Chofer[]> {
@@ -30,5 +33,8 @@ export class ChoferService {
 
   async delete(id: string): Promise<void> {
     await this.choferRepository.delete(id);
+  }
+  async countDravers(): Promise<number> {
+    return await this.choferRepository.count();
   }
 }

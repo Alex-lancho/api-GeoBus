@@ -42,23 +42,24 @@ export class UsuarioService {
         console.error('Contraseña incorrecta');
         return null;
       }
-  
-      // Consulta personalizada para obtener los datos necesarios
-      const queryResult = await this.usuarioRepository.query(
-        `
-        SELECT 
-          c.idChofer, cb.idCombi, u.usuario, u.tipo, 
-          c.nombre, c.apellidos, c.dni, cb.placa, 
-          cb.modelo, cb.linea, h.horaPartida, 
-          h.horaLlegada, h.tiempoLlegada
-        FROM USUARIO u
-        INNER JOIN CHOFER c ON c.idUsuario = u.idUsuario
-        INNER JOIN COMBI cb ON cb.idCombi = c.idCombi
-        INNER JOIN HORARIO h ON h.idCombi = cb.idCombi
-        WHERE u.usuario = ?
-      `,
-        [usuario], // Reemplaza el marcador de posición "?" con el valor del usuario
-      );
+      if(user.tipo=='Conductor'){
+        const queryResult = await this.usuarioRepository.query(
+          `
+          SELECT 
+            c.idChofer, cb.idCombi, u.usuario, u.tipo, 
+            c.nombre, c.apellidos, c.dni, cb.placa, 
+            cb.modelo, cb.linea, h.horaPartida, 
+            h.horaLlegada, h.tiempoLlegada
+          FROM USUARIO u
+          INNER JOIN CHOFER c ON c.idUsuario = u.idUsuario
+          INNER JOIN COMBI cb ON cb.idCombi = c.idCombi
+          INNER JOIN HORARIO h ON h.idCombi = cb.idCombi
+          WHERE u.usuario = ?
+        `,
+          [usuario], // Reemplaza el marcador de posición "?" con el valor del usuario
+        );
+        // Consulta personalizada para obtener los datos necesarios
+      
   
       if (queryResult.length === 0) {
         console.error('Datos no encontrados');
@@ -66,6 +67,32 @@ export class UsuarioService {
       }
   
       return queryResult[0];
+
+      }else{
+        const queryResult = await this.usuarioRepository.query(
+          `
+          SELECT 
+            c.idChofer, u.usuario, u.tipo, 
+            c.nombre, c.apellidos, c.dni
+          FROM USUARIO u
+          INNER JOIN CHOFER c ON c.idUsuario = u.idUsuario
+          WHERE u.usuario = ?
+        `,
+          [usuario], // Reemplaza el marcador de posición "?" con el valor del usuario
+        );
+        // Consulta personalizada para obtener los datos necesarios
+      
+  
+      if (queryResult.length === 0) {
+        console.error('Datos no encontrados');
+        return null;
+      }
+  
+      return queryResult[0];
+
+      }
+  
+      
     } catch (error) {
       console.error('Error en la autenticación:', error);
       throw new Error('Error en la autenticación');
@@ -147,6 +174,5 @@ export class UsuarioService {
     } catch (error) {
       throw new Error(`Error al insertar datos: ${error.message}`);
     }
-  }
-  
+  }  
 }

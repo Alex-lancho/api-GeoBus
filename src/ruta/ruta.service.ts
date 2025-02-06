@@ -64,7 +64,12 @@ export class RutaService {
     await this.rutaRepository.update(id, data);
     return this.rutaRepository.findOne({ where: { idRuta: id }, relations: ['combi'] });
   }
+
   async delete(id: number): Promise<void> {
     await this.rutaRepository.delete(id);
+  }
+
+  async countRoute(): Promise<number> {
+    return await this.rutaRepository.count();
   }
 }

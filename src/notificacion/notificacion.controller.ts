@@ -30,4 +30,9 @@ export class NotificacionController {
   delete(@Param('id') id: string): Promise<void> {
     return this.notificacionService.delete(id);
   }
+
+  @Get('count')
+  async countNotification(): Promise<number> {
+    return this.notificacionService.countNotification();
+  }
 }

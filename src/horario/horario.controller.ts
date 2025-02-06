@@ -30,4 +30,9 @@ export class HorarioController {
   delete(@Param('id') id: string): Promise<void> {
     return this.horarioService.delete(id);
   }
+
+  @Get('count')
+  async countShedules(): Promise<number> {
+    return this.horarioService.countShedules();
+  }
 }

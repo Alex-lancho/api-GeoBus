@@ -36,4 +36,9 @@ export class UbicacionController {
   delete(@Param('id') id: string): Promise<void> {
     return this.ubicacionService.delete(id);
   }
+
+  @Get('count')
+  async countLocation(): Promise<number> {
+      return this.ubicacionService.countLocation();
+  }
 }

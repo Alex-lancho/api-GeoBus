@@ -30,4 +30,9 @@ export class CombiController {
   delete(@Param('id') id: string): Promise<void> {
     return this.combiService.delete(id);
   }
+
+  @Get('count')
+  async countCombi(): Promise<number> {
+    return this.combiService.countCombi();
+  }
 }

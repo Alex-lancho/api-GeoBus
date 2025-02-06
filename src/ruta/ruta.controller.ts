@@ -38,4 +38,9 @@ export class RutaController {
     delete(@Param('id') id: number): Promise<void> {
     return this.rutaService.delete(id);
     }
+
+    @Get('count')
+    async countRoute(): Promise<number> {
+        return this.rutaService.countRoute();
+    }
 }

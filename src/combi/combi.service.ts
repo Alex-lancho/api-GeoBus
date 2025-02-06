@@ -32,4 +32,8 @@ export class CombiService {
   async delete(id: string): Promise<void> {
     await this.combiRepository.delete(id);
   }
+
+  async countCombi(): Promise<number> {
+    return await this.combiRepository.count();
+  }
 }

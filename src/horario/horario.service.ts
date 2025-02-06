@@ -31,4 +31,8 @@ export class HorarioService {
   async delete(id: string): Promise<void> {
     await this.horarioRepository.delete(id);
   }
+
+  async countShedules(): Promise<number> {
+    return await this.horarioRepository.count();
+  }
 }

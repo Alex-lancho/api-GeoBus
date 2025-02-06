@@ -30,4 +30,9 @@ export class ChoferController {
   delete(@Param('id') id: string): Promise<void> {
     return this.choferService.delete(id);
   }
+
+  @Get('count')
+  async countDravers(): Promise<number> {
+    return this.choferService.countDravers();
+  }
 }

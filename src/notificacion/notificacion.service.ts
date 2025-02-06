@@ -32,4 +32,8 @@ export class NotificacionService {
   async delete(id: string): Promise<void> {
     await this.notificacionRepository.delete(id);
   }
+
+  async countNotification(): Promise<number> {
+    return await this.notificacionRepository.count();
+  }
 }

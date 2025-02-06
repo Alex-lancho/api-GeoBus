@@ -17,8 +17,9 @@ export class EvaluacionController {
   }
 
   @Post()
-  create(@Body() data: Partial<Evaluacion>): Promise<Evaluacion> {
-    return this.evaluacionService.create(data);
+  async create(@Body() body: { data: Partial<Evaluacion>; idCombi: string }): Promise<Evaluacion> {
+    const { data, idCombi } = body;
+    return this.evaluacionService.create(data, idCombi);
   }
 
   @Put(':id')
@@ -29,5 +30,10 @@ export class EvaluacionController {
   @Delete(':id')
   delete(@Param('id') id: number): Promise<void> {
     return this.evaluacionService.delete(id);
+  }
+
+  @Get('count')
+  async countEvalutations(): Promise<number> {
+    return this.evaluacionService.countEvalutations();
   }
 }
