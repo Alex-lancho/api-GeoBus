@@ -6,6 +6,11 @@ import { Ubicacion } from '../entities/ubicacion.entity';
 export class UbicacionController {
   constructor(private readonly ubicacionService: UbicacionService) {}
 
+  @Get('total')
+  async countLocation(): Promise<number> {
+      return this.ubicacionService.countLocation();
+  }
+
   @Get()
   findAll(): Promise<Ubicacion[]> {
     return this.ubicacionService.findAll();
@@ -35,10 +40,5 @@ export class UbicacionController {
   @Delete(':id')
   delete(@Param('id') id: string): Promise<void> {
     return this.ubicacionService.delete(id);
-  }
-
-  @Get('count')
-  async countLocation(): Promise<number> {
-      return this.ubicacionService.countLocation();
-  }
+  }  
 }

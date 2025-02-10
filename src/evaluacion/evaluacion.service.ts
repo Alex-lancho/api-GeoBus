@@ -56,4 +56,11 @@ export class EvaluacionService {
   async countEvalutations(): Promise<number> {
     return await this.evaluacionRepository.count();
   }
+
+  async getSheduleByIdCombi(idChofer: string): Promise<Evaluacion[]> {
+    return await this.evaluacionRepository.find({
+        where: { chofer: { idChofer } },
+        relations: ['chofer'], 
+    });
+  }
 }

@@ -6,10 +6,15 @@ import { Alerta } from '../entities/alerta.entity';
 export class AlertaController {
   constructor(private readonly alertaService: AlertaService) {}
 
+  @Get('total')
+  async countAlerts(): Promise<number> {
+    return this.alertaService.countAlerts();
+  }
+
   @Get()
   findAll(): Promise<Alerta[]> {
     return this.alertaService.findAll();
-  }
+  }  
 
   @Get(':id')
   findOne(@Param('id') id: string): Promise<Alerta> {
@@ -17,9 +22,9 @@ export class AlertaController {
   }
 
   @Post()
-  async create(@Body() body: { data: Partial<Alerta>; idCombi: string }): Promise<Alerta> {
-    const { data, idCombi } = body;
-    return this.alertaService.create(data, idCombi);
+  async create(@Body() body: { data: Partial<Alerta>; idChofer: string }): Promise<Alerta> {
+    const { data, idChofer } = body;
+    return this.alertaService.create(data, idChofer);
   }
 
   @Put(':id')
@@ -32,8 +37,9 @@ export class AlertaController {
     return this.alertaService.delete(id);
   }
 
-  @Get('count')
-  async countAlerts(): Promise<number> {
-    return this.alertaService.countAlerts();
+  @Get('listAlert/:idChofer')
+  async obtenerRutasPorCombi(@Param('idChofer') idChofer: string): Promise<Alerta[]> {
+      return this.alertaService.listByIdCombi(idChofer);
   }
+  
 }

@@ -6,6 +6,11 @@ import { Combi } from '../entities/combi.entity';
 export class CombiController {
   constructor(private readonly combiService: CombiService) {}
 
+  @Get('total')
+  async countCombi(): Promise<number> {
+    return this.combiService.countCombi();
+  }
+
   @Get()
   findAll(): Promise<Combi[]> {
     return this.combiService.findAll();
@@ -29,10 +34,5 @@ export class CombiController {
   @Delete(':id')
   delete(@Param('id') id: string): Promise<void> {
     return this.combiService.delete(id);
-  }
-
-  @Get('count')
-  async countCombi(): Promise<number> {
-    return this.combiService.countCombi();
-  }
+  }  
 }

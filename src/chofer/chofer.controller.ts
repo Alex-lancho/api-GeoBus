@@ -6,6 +6,11 @@ import { Chofer } from '../entities/chofer.entity';
 export class ChoferController {
   constructor(private readonly choferService: ChoferService) {}
 
+  @Get('total')
+  async countDravers(): Promise<number> {
+    return this.choferService.countDravers();
+  }
+
   @Get()
   findAll(): Promise<Chofer[]> {
     return this.choferService.findAll();
@@ -31,8 +36,5 @@ export class ChoferController {
     return this.choferService.delete(id);
   }
 
-  @Get('count')
-  async countDravers(): Promise<number> {
-    return this.choferService.countDravers();
-  }
+  
 }

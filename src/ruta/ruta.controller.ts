@@ -6,6 +6,11 @@ import { Ruta } from 'src/entities/ruta.entity';
 export class RutaController {
     constructor(private readonly rutaService: RutaService) {}
 
+    @Get('total')
+    async countRoute(): Promise<number> {
+        return this.rutaService.countRoute();
+    }
+
     @Get()
     findAll(): Promise<Ruta[]> {
         return this.rutaService.findAll();
@@ -37,10 +42,5 @@ export class RutaController {
     @Delete(':id')
     delete(@Param('id') id: number): Promise<void> {
     return this.rutaService.delete(id);
-    }
-
-    @Get('count')
-    async countRoute(): Promise<number> {
-        return this.rutaService.countRoute();
-    }
+    }    
 }

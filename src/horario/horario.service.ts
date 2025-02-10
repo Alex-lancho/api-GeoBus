@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Horario } from '../entities/horario.entity';
+import { Combi } from 'src/entities/combi.entity';
 
 @Injectable()
 export class HorarioService {
@@ -34,5 +35,9 @@ export class HorarioService {
 
   async countShedules(): Promise<number> {
     return await this.horarioRepository.count();
+  }
+
+  async getSheduleByIdCombi(idCombi: string): Promise<Horario> {
+    return this.horarioRepository.findOneBy({ combi: { idCombi } });
   }
 }

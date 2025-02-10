@@ -6,6 +6,11 @@ import { Evaluacion } from '../entities/evaluacion.entity';
 export class EvaluacionController {
   constructor(private readonly evaluacionService: EvaluacionService) {}
 
+  @Get('total')
+  async countEvalutations(): Promise<number> {
+    return this.evaluacionService.countEvalutations();
+  }
+
   @Get()
   findAll(): Promise<Evaluacion[]> {
     return this.evaluacionService.findAll();
@@ -30,10 +35,10 @@ export class EvaluacionController {
   @Delete(':id')
   delete(@Param('id') id: number): Promise<void> {
     return this.evaluacionService.delete(id);
-  }
+  }  
 
-  @Get('count')
-  async countEvalutations(): Promise<number> {
-    return this.evaluacionService.countEvalutations();
+  @Get('getSheduleByIdCombi/:idChofer')
+  async getSheduleByIdCombi(@Param('idChofer')idChofer:string):Promise<Evaluacion[]>{
+    return await this.evaluacionService.getSheduleByIdCombi(idChofer);
   }
 }

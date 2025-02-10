@@ -7,7 +7,7 @@ import { Chofer } from 'src/entities/chofer.entity';
 import { Combi } from 'src/entities/combi.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Alerta,Combi])],
+  imports: [TypeOrmModule.forFeature([Alerta,Combi,Chofer])],
   providers: [AlertaService],
   controllers: [AlertaController],
   exports:[AlertaService]

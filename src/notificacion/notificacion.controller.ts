@@ -6,6 +6,11 @@ import { Notificacion } from '../entities/notificacion.entity';
 export class NotificacionController {
   constructor(private readonly notificacionService: NotificacionService) {}
 
+  @Get('total')
+  async countNotification(): Promise<number> {
+    return this.notificacionService.countNotification();
+  }
+
   @Get()
   findAll(): Promise<Notificacion[]> {
     return this.notificacionService.findAll();
@@ -29,10 +34,5 @@ export class NotificacionController {
   @Delete(':id')
   delete(@Param('id') id: string): Promise<void> {
     return this.notificacionService.delete(id);
-  }
-
-  @Get('count')
-  async countNotification(): Promise<number> {
-    return this.notificacionService.countNotification();
-  }
+  }  
 }

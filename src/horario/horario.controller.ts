@@ -6,6 +6,11 @@ import { Horario } from '../entities/horario.entity';
 export class HorarioController {
   constructor(private readonly horarioService: HorarioService) {}
 
+  @Get('total')
+  async countShedules(): Promise<number> {
+    return this.horarioService.countShedules();
+  }
+
   @Get()
   findAll(): Promise<Horario[]> {
     return this.horarioService.findAll();
@@ -29,10 +34,10 @@ export class HorarioController {
   @Delete(':id')
   delete(@Param('id') id: string): Promise<void> {
     return this.horarioService.delete(id);
-  }
+  }  
 
-  @Get('count')
-  async countShedules(): Promise<number> {
-    return this.horarioService.countShedules();
+  @Get('getSheduleByIdCombi/:idCombi')
+  async getSheduleByIdCombi(@Param('idCombi') idCombi:string):Promise<Horario>{
+    return this.horarioService.getSheduleByIdCombi(idCombi);
   }
 }
